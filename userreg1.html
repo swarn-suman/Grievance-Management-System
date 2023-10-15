@@ -1,0 +1,74 @@
+
+<html>
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="main.css">
+	<style>
+		.forumm #span{
+			display:inline-block;
+			width:30%;
+		}
+		.forumm input{
+			display:inline-block;
+			width:65%;
+		}
+		body{
+			background:#87b1de;			
+		}
+		.container{
+		background:white;
+		margin-top:10px;
+		border:1px solid black;
+		border-radius:10px;
+	}
+	.container h3{
+		border-bottom:2px solid #c0c0c0;
+		text-align:center;
+		padding-bottom:7px;
+	}
+	</style>
+</head>
+<body>	
+	<nav class="navbar-nav navbar-expand-sm bg-dark">
+		<div class="nav-item item1" style="margin-left:5%">
+				<h2 onclick='window.open("index.html");' style="cursor:pointer">Home</h2>
+		</div>
+		<div class="nav-item items" >
+				<a class="nav-link" href="userlogin1.html">User</a>
+		</div>
+			<div class="nav-item items">
+				<a class="nav-link" href="userreg1.html">Registration</a>
+		</div>
+			<div class="nav-item items">
+				<a class="nav-link" href="adminlogin1.html">ADMIN</a>
+		</div>
+	</nav>
+	<div class="container">
+	<h3>Registration</h3>
+	<form onsubmit="myfun()" class="forumm" method="post" id="reg" action="userreg2.php">
+			<div id="span">First Name</div><input class="form-control" type="text" id="fname" name="fname"><p id="chkfname" >*Fill First Name</p><br />
+			<div id="span">Last Name</div><input class="form-control" type="text" id="lname" name="lname"><p id="chklname" >*Fill Last Name</p><br />
+			<div id="span">Username</div><input class="form-control" type="text" id="uname" name="username"><p id="chkuser" style="color:red;display:none;" >*Fill user Name</p><br />
+			<div id="span">Email</div><input name="email" class="form-control" type="email" id="mail"><p id="chkmail" >*Fill Email</p><br />
+			<div id="span">Phone Number</div><input class="form-control" type="text" id="pn" name="phone"><p id="chkpn" >*Fill phone nubmer</p><br />
+			<div id="span">Gender</div>
+							<select style="width:40%;display:inline-block"  class="form-control"  name="gender">
+									<option>Male</option>
+									<option>Female</option>
+							</select>
+			<br />
+			<div id="span">Password</div><input class="form-control" type="password" id="pass"><br />
+			<div id="span">Confirm Password</div><input name="pass" class="form-control" type="text" id="cpass"><p id="match" >Password matched.</p><br />
+		<hr /><button class="btn btn-danger" onclick="myfun()" name="btn" type="button" style="margin-left:33%;width:30%;">
+		SIGN UP</button>
+	</form>
+			
+				<hr /><button class="btn btn-light" onclick="window.location.reload()">Clear All</button>
+				<a class="btn btn-light" href="userlogin1.html">Already SignUP!!Login here</a>
+				<br /><hr />
+	</div>
+<script src="./userregis.js"></script>
+</body>
+</html>
