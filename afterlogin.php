@@ -1,97 +1,13 @@
 <?php
-$servername='localhost';
-$username='root';
-$password='';
-$dbname='project';
-
-$conn=mysqli_connect($servername,$username,$password,$dbname);
-if($conn)
-{
-	$query1="SELECT * FROM `userloginfo`";
-	$result=mysqli_query($conn,$query1);
-	if($result)
-	{
-		while($row=mysqli_fetch_assoc($result))
-		{
-			$user=$row['user'];
-			echo $user;
-		}
-	}		
-	$query1="SELECT * FROM `userregistration`";
-	$result=mysqli_query($conn,$query1);
-	if($result)
-	{
-		while($row=mysqli_fetch_assoc($result))
-		{
-			if($user==$row['username'])
-			{
-				$fname=$row['fname'];
-				$lname=$row['lname'];
-				$email=$row['email'];
-				$phone=$row['phone'];
-				$gender=$row['gender'];
-				$pass=$row['pass'];
-			}
-		}
-	}	$query1="SELECT * FROM `complaints`";
-	$result=mysqli_query($conn,$query1);
-	$pend=0;
-	if($result)
-	{
-		while($row=mysqli_fetch_assoc($result))
-		{
-			if($user==$row['user'])
-			{
-				$cme=$row['pending'];
-				if($cme=='1')
-				{
-					$pend++;
-				}
-			}
-		}
-	}
-	
-	$query1="SELECT * FROM `completedcomp`";
-	$result=mysqli_query($conn,$query1);
-	$compl=0;
-	if($result)
-	{
-		while($row=mysqli_fetch_assoc($result))
-		{
-			if($user==$row['user'])
-			{	
-					$compl++;	
-			}
-		}
-	}
-	
-	$query1="SELECT * FROM `inprogresscomp`";
-	$result3=mysqli_query($conn,$query1);
-	$inpro=0;
-	if($result3)
-	{
-		while($row=mysqli_fetch_assoc($result3))
-		{
-			if($user==$row['user'])
-			{	
-					$inpro++;	
-			}
-		}
-	}
-	
-	
-}
- 
- ?>
+include('user_data.php');
+?>
 <html>
-	<head>
-			<title></title>
+ <head>
+<title></title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="main.css">
-  		
-		
 		<style>
 			.items{
 				margin-top:5px;
@@ -190,84 +106,81 @@ if($conn)
 		function image2Text(){
 				window.location.assign('index1.html');
 			}
+		function speech2Text(){
+				window.location.assign('index2.html');
+			}
 		</script>
 	</head>
 	<body>
 				<nav class="navbar-nav nav2 navbar-expand-sm bg-primary">
 		
 <i class="fa fa-reorder" onclick="callsh()" style="cursor:pointer;font-size:24px;margin:10px 2px 0px 20px;color:white"></i>		
-		<div class="nav-item item1" style="margin-left:5%">
+	     <div class="nav-item item1" style="margin-left:5%">
 		<h3 style="color:white"><?php echo $fname." ".$lname; ?></h3>
 		</div>
-		
-	
-			<div class="nav-item items"  style="margin-left:50%;">
+		<div class="nav-item items"  style="margin-left:50%;">
 			<a class="btn btn-danger" title="Click to Logout" href="userlogin1.html">LOGOUT</a>
 		</div>
+		<button onclick="setLanguage('en')" class="btn btn-warning mx-2 rounded-pill">English</button>
+               <button onclick="setLanguage('hi')" class="btn btn-warning mx-1 rounded-pill" >हिन्दी</button>
 		</nav>
-		<nav  class="navbar navbar1 bg-light" style="float:left;margin-top:0px;display:block;
-				background-color:#e4d7d7ab;" id="sh_menu">
-			<!-- Links -->
-  <ul class="navbar-nav" style="width:100%;background-color:#17a2b86e;">
-			  <li class="nav-item" >			
-		<img src="user.png" width="90px" height="80px">
-		   </li>
-    <li class="nav-item"  >
-      <a class="btn btn-dark btn1" onclick="dashboard()" href="#">Dashboard</a>
-    </li><br />
-    <li class="nav-item">
-      <a class="btn btn-dark btn1" onclick="comp()" href="#">Complaint</a>
-    </li>
-	 <li class="nav-item" style="display:none;" id="m_comp">
-      <a class="btn btn-dark btn1" onclick="makecomplaint()" href="#">Make Complaint</a>
-    </li>
-	
-    <li class="nav-item" >
-      <a class="btn btn-dark btn1" onclick="completed()" style="display:none;" id="c_comp" href="#">Completed</a>
-    </li>
-	
-    <li class="nav-item" >
-      <a class="btn btn-dark btn1" onclick="inpro()" style="display:none;" id="i_comp" href="#">Inprogress</a>
-    </li>
-    <li class="nav-item" >
-      <a class="btn btn-dark btn1" onclick="pending()" style="display:none;" id="p_comp" href="#">Pending</a>
-    </li>
-	<li class="nav-item" >
-      <a class="btn btn-dark btn1" onclick="history()" style="display:none;" id="h_comp" href="#">Complaint history</a>
-    
-	</li>
-	    <li class="nav-item">
-      <a class="btn btn-dark btn1" onclick="personal()" href="#">Personal Info</a>
-    </li>
-	    <li class="nav-item">
-      <a class="btn btn-dark btn1" onclick="editinfo()" style="display:none;" id="e_info" href="#">Edit Info</a>
-    </li>
-	    <li class="nav-item">
-      <a class="btn btn-dark btn1" onclick="changepass()" style="display:none;" id="c_pass" href="#">Change password</a>
-    </li>
-	  
-  </ul>
+		<!-- Links -->
+		<nav  class="navbar navbar1 bg-light" style="float:left;margin-top:0px;display:block;background-color:#e4d7d7ab;" id="sh_menu">		
+  			<ul class="navbar-nav" style="width:100%;background-color:#17a2b86e;">
+			  	<li class="nav-item" >			
+					<img src="user.png" width="90px" height="80px">
+		   		</li>
+    				<li class="nav-item"  >
+      				<a class="btn btn-dark btn1" onclick="dashboard()" data-translate="dashboard" href="#">Dashboard</a>
+    				</li><br />
+    				<li class="nav-item">
+     				 <a class="btn btn-dark btn1" onclick="comp()" data-translate="complaint" href="#">Complaint</a>
+   				 </li>
+	 			<li class="nav-item" style="display:none;" id="m_comp">
+      				<a class="btn btn-dark btn1" onclick="makecomplaint()" data-translate="makecomplaint" href="#">Make Complaint</a>
+    				</li>
+    				<li class="nav-item" >
+      				<a class="btn btn-dark btn1" onclick="completed()" style="display:none;" data-translate="completed" id="c_comp" href="#">Completed</a>
+    				</li>
+    				<li class="nav-item" >
+      				<a class="btn btn-dark btn1" onclick="inpro()" style="display:none;" data-translate="inprogress" id="i_comp" href="#">Inprogress</a>
+   				</li>
+    				<li class="nav-item" >
+      				<a class="btn btn-dark btn1" onclick="pending()" style="display:none;" id="p_comp" data-translate="pending" href="#">Pending</a>
+    				</li>
+				<li class="nav-item" >
+     				 <a class="btn btn-dark btn1" onclick="history()" style="display:none;" id="h_comp" data-translate="complaintHistory" href="#">Complaint history</a>
+				</li>
+	    			<li class="nav-item">
+     				 <a class="btn btn-dark btn1" onclick="personal()" data-translate="personalInfo" href="#">Personal Info</a>
+    				</li>
+	   			 <li class="nav-item">
+     				 <a class="btn btn-dark btn1" onclick="editinfo()" style="display:none;" data-translate="editInfo" id="e_info" href="#">Edit Info</a>
+   				</li>
+	    			<li class="nav-item">
+      				<a class="btn btn-dark btn1" onclick="changepass()" style="display:none;" data-translate="changePassword" id="c_pass" href="#">Change password</a>
+    				</li>
+ 		 	</ul>
 		</nav>
 		<div id="main" style="width:78%;float:left;" >
-			
 			<div class="" id="dashboard" style="width:100%;display:block;padding:20px;">
 			<h4>>Dashboard<hr /></h4>
 				<div id="file1" onclick="pending()" style="cursor:pointer;">
 					<i class="fa fa-file-text" style=""></i>
-					<p id="file12" style="display:block;font-size:15px;text-align:center;">Pending complaints<div id="pen"><?php echo $pend; ?></div></p>
+					<p id="file12" style="display:block;font-size:15px;text-align:center;" data-translate="PendingComplaint" >Pending complaints<div id="pen"><?php echo $pend; ?></div></p>
 				</div>
 					<div id="file2" onclick="inpro()" style="cursor:pointer;">
 						<i class="fa fa-file-text" style=""></i>
-						<p id="file22" style="display:block;font-size:15px;text-align:center;">in progress complaints<div id="pen2"><?php echo $inpro; ?></div></p>
+						<p id="file22" style="display:block;font-size:15px;text-align:center;" data-translate="inProgressComplaint" >in progress complaints<div id="pen2"><?php echo $inpro; ?></div></p>
 					</div>
-						<div id="file3" onclick="completed()" style="cursor:pointer;">
-							<i class="fa fa-file-text" style=""></i>
-							<p id="file32" style="display:block;font-size:15px;text-align:center;">Completed complaints<div id="pen3"><?php echo $compl; ?></div></p>
-						</div>
-			</div>
+					<div id="file3" onclick="completed()" style="cursor:pointer;">
+						<i class="fa fa-file-text" style=""></i>
+						<p id="file32" style="display:block;font-size:15px;text-align:center;" data-translate="completedComplaint" >Completed complaints<div id="pen3"><?php echo $compl; ?></div></p>
+					</div>
+		</div>
 			
-			<!----------------------------------------------------------------------------------------DASHBOARD-->
-			<!----------------------------------------------------------------------------------------editinfo-->
+			<!--------------------------------DASHBOARD-->
+			<!--------------------------editinfo-->
 			<div class="" id="editinfo" style="width:90%;display:none;border-radius:15px;padding:15px;margin:10px;background-color:rgba(32, 76, 5, 0.1);border:1px solid aqua;">
 				<h4>>Personal Information<hr /></h4>
 				<form class="form" action="userupdateinfo" method="POST" style="width:100%;">
@@ -283,297 +196,77 @@ if($conn)
 					<input type="submit"  class="btn btn-success " style="width:auto ;padding:10px;padding-left:50px;padding-right:50px;"  value="save"><br />
 				</form>
 			</div>
-			
-			<!----------------------------------------------------------------------------------------editinfo-->
-						<!----------------------------------------------------------------------------------------makecomp-->
+
+			<!--------------------------------makecomp-->
 			<div class="" id="makecomplaint" style="width:100%;display:none;border-radius:15px;padding:15px;margin:10px;background-color:rgba(32, 76, 5, 0.1);border:1px solid aqua;">
-				<h4>>Make a complaint<hr /></h4>
+				<h4 data-translate="makecomp">>Make a complaint<hr /></h4>
 				<form class="form" action="usermakecomp.php" method="POST" style="width:100%;" enctype="multipart/form-data">
-					<span id="span2">Category</span>
+					<span id="span2" data-translate="cat">Category</span>
 					<select id="category" name="category" style="width:30%;border-radius:12px;height:37px;"> 
-						<option>Other</option>
-						<option>Elected Members</option>
-						<option>General Public</option>
+						<option data-translate="oth">Other</option>
+						<option data-translate="ElecMmb">Elected Members</option>
+						<option data-translate="GenPub">General Public</option>
 					</select>
-					<span id="span2" style="margin-left:20px;">Sub Categry</span>
+					<span id="span2" data-translate="subcat" style="margin-left:20px;">Sub Categry</span>
 					<input type="text" name="subcategory" style="width:30%;border-radius:5px;height:37px; border:.8px solid aqua;" placeholder="Please Enter a subcategory..">
 					<br /><br />
-					<span id="span2">Nature of Complaint</span><input type="text" name="nature" class="form-control in2" placeholder="Regarding to ...."><br />
-					<span id="span">Complaint</span>
+					<span id="span2" data-translate="naturecomp">Nature of Complaint</span><input type="text" name="nature" class="form-control in2" placeholder="Regarding to ...."><br />
+					<span id="span" data-translate="comp">Complaint</span>
 					<textarea name="comp" class="form-control in1" placeholder="Feel free to write. Your complaint is secure." style="height:200px;"></textarea><br />
 					<br /><span id="span">Regarding File (If any)</span><input name="f2" type="file" class="form-control" >
 				<br />
-					<input type="submit"  class="btn btn-success " style="width:auto ;padding:10px;padding-left:50px;padding-right:50px;"  value="Send"><br />
+					<input type="submit"  class="btn btn-success " style="width:auto ;padding:10px;padding-left:50px;padding-right:50px;"  value="Send/दर्ज करें"><br />
 				</form>
-				<button onclick="image2Text()">image 2 text</button>
+				<button class="btn btn-success " onclick="image2Text()">image 2 text</button>
+				<button class="btn btn-success " onclick="speech2Text()">speech2Text</button>
 			</div>
 			
-			<!----------------------------------------------------------------------------------------makecomp-->
-			<!----------------------------------------------------------------------------------------pending-->
+			<!--------------------------------pending-->
 			<div class="" id="pending" style="width:90%;display:none;border-radius:15px;padding:15px;margin:10px;background-color:rgba(32, 76, 5, 0.1);border:1px solid aqua;">
 				<h4>>Pending Information<hr /></h4>
 				<?php
-	$query1="SELECT * FROM `complaints`";
-	$result=mysqli_query($conn,$query1);
-	$num=0;
-	if($result)
-	{						echo "<table class='table'><tr class='tr'>";
-									echo "<th>Number</th><th>Category</th><th>Sub-Category</th><th>Nature</th><th>Date & Time</th><th>File</th><th>Complaints</th></tr>";
-									$num=0;
-		while($row=mysqli_fetch_assoc($result))
-		{
-			if($user==$row['user'])
-			{
-				$cme=$row['pending'];
-				if($cme=='1')
-				{							$num++;
-											$cate=$row['category'];
-											$subcate=$row['subcategory'];
-											$nat=$row['nature'];
-											$da=$row['date'];
-											$fil=$row['file'];
-											$co=$row['comp'];
-											echo "<tr class='tr'>
-											<td>$num</td>
-											<td>$cate</td>
-											<td>$subcate</td>
-											<td>$nat</td>
-											<td>$da</td>";
-											if($fil==""||$fil=='0')
-											{
-												
-											echo "<td>No file</td>";
-											}
-											else{
-											echo "<td><a href='$fil' target='_blank'>view file</a></td>";
-											}
-											echo "<td style='width:200px;'>";
-											echo $co;
-											echo "</td>
-											</tr>";
-				}
-			}
-		}
-		echo "</table>";
-	}
-	if($num==0)
-	{
-		echo "Still there is no record";
-	}
-				?>
+	                 include('display_pending_complaints.php');
+	 			?>
 			</div>
 			
-			<!----------------------------------------------------------------------------------------pending-->
-			<!----------------------------------------------------------------------------------------inpro-->
+			<!---------------------------------inpro-->
 			<div class="" id="inpro" style="width:90%;display:none;border-radius:15px;padding:15px;margin:10px;background-color:rgba(32, 76, 5, 0.1);border:1px solid aqua;">
 				<h4>>Inprogress Complaints<hr /></h4>
 				<?php
-				$num=0;
-				$query1="SELECT * FROM `complaints`";
-				$seeme="SELECT * FROM `inprogresscomp`";
-				$resolt=mysqli_query($conn,$seeme);
-					
-					if($resolt)
-					{
-						while($cmp=mysqli_fetch_assoc($resolt))
-						{
-							$tellme=$cmp['user'];
-						if($user==$tellme)
-						{
-							$inid=$cmp['compnum'];
-							$remark=$cmp['remarks'];
-						$result=mysqli_query($conn,$query1);
-						
-						if($result)
-							{
-							while($row=mysqli_fetch_assoc($result))
-								{				
-										$id=$row['id'];
-										if($id==$inid)
-										{
-											$num++;
-											$cate=$row['category'];
-											$subcate=$row['subcategory'];
-											$nat=$row['nature'];
-											$da=$row['date'];
-											$fil=$row['file'];
-											$co=$row['comp'];
-											echo "<h5 class='tr'>											
-											Number:$num			
-											</h5>
-											<h6>
-											 Remark :<span id='remark'>$remark</span><br />
-											";
-											echo"File:               ";
-											if($fil==""||$fil=='0')
-											{
-												
-											echo "<span id='span'>No file</span><br />";
-											}
-											else{
-											echo "<a href='$fil' target='_blank'>view file</a><br />";
-											}
-											 echo "
-											 Complaint-categoty:<span id='span'> $cate</span><br />
-											 Complaint-Subcategoty:   <span id='span'>$subcate</span><br />
-											 Complaint-Nature:        <span id='span'>$nat</span><br />
-											 Complaint-Date:          <span id='span'>$da</span><br />
-											 COMLAINT >               <span id='span'>$co</span><br /></h6><br /><hr />";
-										}
-										
-									
-								}
-							}
-						}
-						}
-					}
-	if($num==0)
-	{
-		echo "Still there is no record";
-	}
+	                 include('display_inprogress_complaints.php')
 				?>
 			</div>
 			
-			<!----------------------------------------------------------------------------------------inpro-->
-			<!----------------------------------------------------------------------------------------completed-->
+			<!-------------------------------completed-->
 			<div class="" id="completed" style="width:90%;display:none;border-radius:15px;padding:15px;margin:10px;background-color:rgba(32, 76, 5, 0.1);border:1px solid aqua;">
 				<h4>>Completed Complaints<hr /></h4>
 				<?php
-				$num=0;
-				$query1="SELECT * FROM `complaints`";
-				$seee="SELECT * FROM `completedcomp`";
-				$reso=mysqli_query($conn,$seee);
-					
-					if($reso)
-					{
-						while($coomp=mysqli_fetch_assoc($reso))
-						{
-							$tellme=$coomp['user'];
-						if($user==$tellme)
-						{
-							$cid=$coomp['compnum'];
-							$remark=$coomp['remark'];
-						$result=mysqli_query($conn,$query1);
-						
-						if($result)
-							{
-							while($row=mysqli_fetch_assoc($result))
-								{				
-										$id=$row['id'];
-										if($id==$cid)
-										{
-											$num++;
-											$cate=$row['category'];
-											$subcate=$row['subcategory'];
-											$nat=$row['nature'];
-											$da=$row['date'];
-											$fil=$row['file'];
-											$co=$row['comp'];
-											echo "<h5 class='tr'>											
-											Number:$num			
-											</h5>
-											<h6>
-											 Remark :<span id='remark'>$remark</span><br />
-											";
-											echo"File:               ";
-											if($fil==""||$fil=='0')
-											{
-												
-											echo "<span id='span'>No file</span><br />";
-											}
-											else{
-											echo "<a href='$fil' target='_blank'>view file</a><br />";
-											}
-											 echo "
-											 Complaint-categoty:<span id='span'> $cate</span><br />
-											 Complaint-Subcategoty:   <span id='span'>$subcate</span><br />
-											 Complaint-Nature:        <span id='span'>$nat</span><br />
-											 Complaint-Date:          <span id='span'>$da</span><br />
-											 COMLAINT >               <span id='span'>$co</span><br /></h6><br /><hr />";
-										}
-										
-									
-								}
-							}
-						}
-						}
-					}		
+				include('display_completed_complaints.php');
 				?>
 			</div>
 			
-			<!----------------------------------------------------------------------------------------completed-->
-			<!----------------------------------------------------------------------------------------history-->
+			
+			<!-----------------------------------history-->
 			<div class="" id="history" style="width:90%;display:none;border-radius:15px;padding:15px;margin:10px;background-color:rgba(32, 76, 5, 0.1);border:1px solid aqua;">
 				<h4>>History Information<hr /></h4>
 				<?php
-					$conn=mysqli_connect($servername,$username,$password,$dbname);
-					if($conn)
-						{
-							$query1="SELECT * FROM `complaints`";
-							$result=mysqli_query($conn,$query1);
-							if($result)
-								{
-									$num=0;
-									echo "<table class='table'><tr class='tr'>";
-									echo "<th>Number</th><th>Category</th><th>Sub-Category</th><th>Nature</th><th>Date & Time</th><th>File</th><th>Complaints</th></tr>";
-									while($row=mysqli_fetch_assoc($result))
-									{ 
-										if($user==$row['user'])
-										{$num++;
-											$cate=$row['category'];
-											$subcate=$row['subcategory'];
-											$nat=$row['nature'];
-											$da=$row['date'];
-											$fil=$row['file'];
-											$co=$row['comp'];
-											echo "<tr class='tr'>
-											<td>$num</td>
-											<td>$cate</td>
-											<td>$subcate</td>
-											<td>$nat</td>
-											<td>$da</td>";
-											if($fil==""||$fil=='0')
-											{
-												
-											echo "<td>No file</td>";
-											}
-											else{
-											echo "<td><a href='$fil' target='_blank'>view file</a></td>";
-											}
-											echo "<td style='width:200px;'>";
-											echo $co;
-											echo "</td>
-											</tr>";
-											
-										}
-									}
-									echo "</table>";
-									if($num==0)
-									{
-										echo "NO complaint made yet.";
-									}
-								}
-						}
+					include('display_all_complaints.php');
 				?>
 			</div>
 			
-			<!----------------------------------------------------------------------------------------history-->
-			<!----------------------------------------------------------------------------------------changepass-->
+			<!------------------------------changepass-->
 			<div class="" id="changepass" style="width:90%;display:none;border-radius:15px;padding:15px;margin:10px;background-color:rgba(32, 76, 5, 0.1);border:1px solid aqua;">
 				<h4>>Change Password<hr /></h4>
 				<form class="form" action="userchangepass.php" method="POST" style="width:100%;">
 				
-					<span id="span">Enter OLD password</span><input type="password"  name="oldpass" class="form-control in1" placeholder="Old Password..."><br />		
+					<span id="span" data-translate="oldpa" >Enter OLD password</span><input type="password"  name="oldpass" class="form-control in1" placeholder="Old Password..."><br />		
 					<span id="span">Enter new Password</span><input type="password" name="newpass" class="form-control in1" placeholder="New Password..."><br />
 					<span id="span">Re-enter new password</span><input type="password" name="renewpass" class="form-control in1" placeholder="Re-enter New Password..."><br />
-					
 					<input type="submit"  class="btn btn-success " style="width:auto ;padding:10px;padding-left:50px;padding-right:50px;"  value="save"><br />
 				</form>
 			</div>
-			
-			<!----------------------------------------------------------------------------------------changepass-->
 		</div>
-		
+		<script src="./scriptt.js"></script>
 		<script src="./afterlog.js"></script>
 	</body>
 </html>

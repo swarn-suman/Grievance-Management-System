@@ -1,6 +1,4 @@
 <?php
-
-
 $user=$_POST['username'];
 $pass=$_POST['pass'];
 $date= date("F j, Y, g:i a"); 

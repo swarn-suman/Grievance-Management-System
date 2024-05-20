@@ -1,17 +1,7 @@
 const fileSelector = document.getElementById('it')
 const start = document.getElementById('cnv')
-//const img = document.querySelector('img')
 const progress = document.querySelector('.progress')
 const textarea = document.querySelector('textarea')
-
-// first show image on upload
-// fileSelector.onchange = () => {
-//     var file = fileSelector.files[0]
-//     var imgUrl = window.URL.createObjectURL(new Blob([file], { type: 'image/jpg' }))
-//     img.src = imgUrl
-// }
-
-// now start text recognition
 start.addEventListener('click', function(event) {
     event.preventDefault();
     textarea.innerHTML = ''

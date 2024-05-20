@@ -35,6 +35,8 @@ if($conn)
 	}	
 	
 	$pend='1';
+	$file_content = file_get_contents($uploaddir);
+        $file_content = mysqli_real_escape_string($conn, $file_content);
 	$query2="INSERT INTO `complaints`(`user`, `category`, `subcategory`, `nature`, `comp`, `file`, `pending`, `date`) VALUES 
 	('$user','$cat','$subcat','$nature','$comp','$uploaddir','$pend','$date')";
 

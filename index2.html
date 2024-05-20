@@ -1,0 +1,45 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grievance system</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="main.css">
+   
+</head>
+<body>
+    <div class="container" style="width:100%;border-radius:15px;padding:15px;margin:10px;background-color:rgba(32, 76, 5, 0.1);border:1px solid aqua;">
+        <form class="form" action="usermakecomp.php" method="post" style="width:100%;">
+        <div class="upper">
+            <span id="span2">Category</span>
+            <select id="category" name="category" style="width:30%;border-radius:12px;height:37px;"> 
+                <option>Other</option>
+                <option>Elected Member</option>
+                <option>General Public</option>
+            </select>
+            <span id="span2" style="margin-left:20px;">Sub Category</span>
+            <input type="text" name="subcategory" style="width:30%;border-radius:5px;height:37px; border: 0.8px solid aqua;" placeholder="Please Enter a subcategory..">
+            <br /><br />
+            <span id="span2">Nature of Complaint</span>
+            <input type="text" name="nature" class="form-control in2" placeholder="Regarding to ...."><br />
+            <input type="file" id="it">
+            <button type="button" id="cnv">Start</button>
+            <div class="progress"></div>
+        </div>
+        <div class="bottom">
+            <div>
+                <textarea id="transcript" type="text" name="comp" class="form-control in1 rest keyboardInput" placeholder="speak" style="height:200px;"></textarea><br />
+            </div>
+            <input  id="action" type="button" onclick="toggle()" value="Start"/>
+        </div>
+        <input type="submit" class="btn btn-success" style="width:auto; padding:10px; padding-left:50px; padding-right:50px;" value="Send"><br />
+        </form>
+    </div>
+    <script src="./index.js"></script>
+</body>
+</html>
